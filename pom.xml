@@ -6,7 +6,11 @@
 
     <groupId>org.hello.algorithm</groupId>
     <artifactId>algorithm-demo</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>a01array</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

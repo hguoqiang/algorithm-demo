@@ -1,0 +1,216 @@
+package org.hgq;
+
+/**
+ * @description:
+ * @author: huangguoqiang
+ * @create: 2021-06-23 13:16
+ **/
+public class DynamicArray<E> {
+    /**
+     * 容器存放所有元素
+     */
+    private Object[] elements;
+
+    /**
+     * 容器默认容量
+     */
+    private static final int DEFAULT_CAPACITY = 2;
+    /**
+     * 容器内元素个数
+     */
+    private int size;
+
+
+    public DynamicArray() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    public DynamicArray(int capacity) {
+        capacity = capacity < DEFAULT_CAPACITY ? DEFAULT_CAPACITY : capacity;
+        elements = new Object[capacity];
+
+    }
+
+    /**
+     * 返回元素的数量
+     *
+     * @return
+     */
+    int size() {
+        return size;
+    }
+
+    /**
+     * 返回容器是否为空
+     *
+     * @return
+     */
+    boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * 返回是否包含指定元素
+     *
+     * @param element
+     * @return
+     */
+    boolean contains(E element) {
+        return indexOf(element) != -1;
+    }
+
+    /**
+     * 在容器尾部添加元素
+     *
+     * @param element
+     */
+    void add(E element) {
+
+        enlarge(size + 1);
+
+        elements[size++] = element;
+    }
+
+    /**
+     * 在指定位置添加元素，此位置及后面所有元素位置向后面移动一个
+     *
+     * @param index
+     * @param element
+     */
+    void add(int index, E element) {
+        rangCheckForAdd(index);
+        if (index == size) {
+            add(element);
+        } else {
+            enlarge(size + 1);
+            for (int i = size - 1; i >= index; i--) {
+                elements[i + 1] = elements[i];
+            }
+            elements[index] = element;
+            size++;
+        }
+    }
+
+    private void enlarge(int minCapacity) {
+        //容器当前实际容量
+        int oldCapacity = elements.length;
+
+        if (oldCapacity <= minCapacity) {
+            //扩容 2倍
+            Object[] newElements = new Object[(oldCapacity << 1)];
+            for (int i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
+            System.out.println("扩容了，新容量：" + elements.length);
+        }
+    }
+
+    private void outOfBounds(int index) {
+        throw new ArrayIndexOutOfBoundsException("index :" + index + " , size:" + size);
+    }
+
+    private void rangCheck(int index) {
+        if (index < 0 || index >= size) {
+            outOfBounds(index);
+        }
+    }
+
+    private void rangCheckForAdd(int index) {
+        if (index < 0 || index > size) {
+            outOfBounds(index);
+        }
+    }
+
+    /**
+     * 在指定位置设置元素，覆盖原来的元素，返回原来的元素
+     *
+     * @param index
+     * @param element
+     * @return
+     */
+    E set(int index, E element) {
+        rangCheck(index);
+        E old = (E) elements[index];
+        elements[index] = element;
+        return old;
+    }
+
+    /**
+     * 查找指定位置的元素
+     *
+     * @param index
+     * @return
+     */
+    E get(int index) {
+        rangCheck(index);
+        return (E) elements[index];
+    }
+
+    /**
+     * 删除指定位置的元素
+     *
+     * @param index
+     * @return
+     */
+    E remove(int index) {
+        rangCheck(index);
+        E old = (E) elements[index];
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        elements[--size] = null;
+        return old;
+    }
+
+    /**
+     * 返回指定元素的第一次索引位置
+     * 如果没有指定的元素，返回-1
+     *
+     * @param element
+     * @return
+     */
+    int indexOf(E element) {
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (elements[i].equals(element)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 清空容器内所有元素
+     */
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("size:")
+                .append(size)
+                .append(" [");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(elements[i]);
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+}
