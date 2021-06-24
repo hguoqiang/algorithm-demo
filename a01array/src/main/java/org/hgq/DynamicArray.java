@@ -5,7 +5,7 @@ package org.hgq;
  * @author: huangguoqiang
  * @create: 2021-06-23 13:16
  **/
-public class DynamicArray<E> {
+public class DynamicArray<E> extends AbstractCustList<E> {
     /**
      * 容器存放所有元素
      */
@@ -15,10 +15,6 @@ public class DynamicArray<E> {
      * 容器默认容量
      */
     private static final int DEFAULT_CAPACITY = 2;
-    /**
-     * 容器内元素个数
-     */
-    private int size;
 
 
     public DynamicArray() {
@@ -31,40 +27,14 @@ public class DynamicArray<E> {
 
     }
 
-    /**
-     * 返回元素的数量
-     *
-     * @return
-     */
-    int size() {
-        return size;
-    }
-
-    /**
-     * 返回容器是否为空
-     *
-     * @return
-     */
-    boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
-     * 返回是否包含指定元素
-     *
-     * @param element
-     * @return
-     */
-    boolean contains(E element) {
-        return indexOf(element) != -1;
-    }
 
     /**
      * 在容器尾部添加元素
      *
      * @param element
      */
-    void add(E element) {
+    @Override
+    public void add(E element) {
 
         enlarge(size + 1);
 
@@ -77,7 +47,8 @@ public class DynamicArray<E> {
      * @param index
      * @param element
      */
-    void add(int index, E element) {
+    @Override
+    public void add(int index, E element) {
         rangCheckForAdd(index);
         if (index == size) {
             add(element);
@@ -106,21 +77,6 @@ public class DynamicArray<E> {
         }
     }
 
-    private void outOfBounds(int index) {
-        throw new ArrayIndexOutOfBoundsException("index :" + index + " , size:" + size);
-    }
-
-    private void rangCheck(int index) {
-        if (index < 0 || index >= size) {
-            outOfBounds(index);
-        }
-    }
-
-    private void rangCheckForAdd(int index) {
-        if (index < 0 || index > size) {
-            outOfBounds(index);
-        }
-    }
 
     /**
      * 在指定位置设置元素，覆盖原来的元素，返回原来的元素
@@ -129,7 +85,8 @@ public class DynamicArray<E> {
      * @param element
      * @return
      */
-    E set(int index, E element) {
+    @Override
+    public E set(int index, E element) {
         rangCheck(index);
         E old = (E) elements[index];
         elements[index] = element;
@@ -142,7 +99,8 @@ public class DynamicArray<E> {
      * @param index
      * @return
      */
-    E get(int index) {
+    @Override
+    public E get(int index) {
         rangCheck(index);
         return (E) elements[index];
     }
@@ -153,7 +111,8 @@ public class DynamicArray<E> {
      * @param index
      * @return
      */
-    E remove(int index) {
+    @Override
+    public E remove(int index) {
         rangCheck(index);
         E old = (E) elements[index];
         for (int i = index; i < size - 1; i++) {
@@ -170,7 +129,8 @@ public class DynamicArray<E> {
      * @param element
      * @return
      */
-    int indexOf(E element) {
+    @Override
+    public int indexOf(E element) {
         if (element == null) {
             for (int i = 0; i < size; i++) {
                 if (elements[i] == null) {
@@ -190,6 +150,7 @@ public class DynamicArray<E> {
     /**
      * 清空容器内所有元素
      */
+    @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             elements[i] = null;

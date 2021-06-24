@@ -5,7 +5,7 @@ package org.hgq;
  * @author: huangguoqiang
  * @create: 2021-06-23 13:36
  **/
-public class App {
+public class ArrayApp {
     public static void main(String[] args) {
 
        /* ArrayList<Integer> arr = new ArrayList<Integer>();
