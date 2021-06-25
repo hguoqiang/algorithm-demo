@@ -5,9 +5,10 @@ package org.hgq;
  * @author: huangguoqiang
  * @create: 2021-06-24 11:08
  **/
-public class OneWayLinkedList<E> extends AbstractCustList<E> {
+public class SinglyLinkedList<E> extends AbstractCustList<E> {
 
     private Node<E> head;
+
 
     @Override
     public void add(E element) {
@@ -19,6 +20,12 @@ public class OneWayLinkedList<E> extends AbstractCustList<E> {
         }
     }
 
+    /**
+     * 最好O(1)，添加第一个元素
+     * 最坏O(n)，添加最后一个元素
+     * 平均O(n)
+     * @param element
+     */
     @Override
     public void add(int index, E element) {
         rangCheckForAdd(index);
@@ -35,6 +42,13 @@ public class OneWayLinkedList<E> extends AbstractCustList<E> {
         size++;
     }
 
+    /**
+     * 最好O(1)，设置第一个元素
+     * 最坏O(n)，设置最后一个元素
+     * 平均O(n)
+     * @param index
+     * @return
+     */
     @Override
     public E set(int index, E element) {
         rangCheck(index);
@@ -48,9 +62,15 @@ public class OneWayLinkedList<E> extends AbstractCustList<E> {
         Node<E> indexNode = prev.next;
         prev.next = new Node(element, indexNode.next);
         return indexNode.element;
+   }
 
-    }
-
+    /**
+     * 最好O(1)，获取第一个元素
+     * 最坏O(n)，获取最后一个元素
+     * 平均O(n)
+     * @param index
+     * @return
+     */
     @Override
     public E get(int index) {
         rangCheck(index);
@@ -61,6 +81,13 @@ public class OneWayLinkedList<E> extends AbstractCustList<E> {
         return (E) prev.next.element;
     }
 
+    /**
+     * 最好O(1)，删除第一个元素
+     * 最坏O(n)，删除最后一个元素
+     * 平均O(n)
+     * @param index
+     * @return
+     */
     @Override
     public E remove(int index) {
         rangCheck(index);
@@ -79,6 +106,14 @@ public class OneWayLinkedList<E> extends AbstractCustList<E> {
         return delValue;
     }
 
+    /**
+     * 获取指定index位置的前一个元素
+     * 最好O(1)，获取第一个元素
+     * 最坏O(n)，获取最后一个元素
+     * 平均O(n)
+     * @param index
+     * @return
+     */
     private Node getPreviousNode(int index) {
         Node prev = head;
         for (int i = 1; i < index; i++) {

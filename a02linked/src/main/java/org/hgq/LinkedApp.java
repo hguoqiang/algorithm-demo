@@ -7,11 +7,14 @@ package org.hgq;
  **/
 public class LinkedApp {
     public static void main(String[] args) {
-        OneWayLinkedList<Integer> list = new OneWayLinkedList<>();
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         list.add(99);
         list.add(88);
         list.add(77);
         System.out.println(list);
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
         list.add(1, 100);
         list.add(1, 200);
         list.add(list.size, 777);

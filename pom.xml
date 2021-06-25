@@ -12,6 +12,7 @@
         <module>a01array</module>
         <module>a02linked</module>
         <module>a00common</module>
+        <module>a00leetcode</module>
     </modules>
     <dependencies>
         <dependency>

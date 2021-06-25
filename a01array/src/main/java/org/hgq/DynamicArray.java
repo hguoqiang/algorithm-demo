@@ -30,7 +30,7 @@ public class DynamicArray<E> extends AbstractCustList<E> {
 
     /**
      * 在容器尾部添加元素
-     *
+     * O(1)
      * @param element
      */
     @Override
@@ -43,7 +43,9 @@ public class DynamicArray<E> extends AbstractCustList<E> {
 
     /**
      * 在指定位置添加元素，此位置及后面所有元素位置向后面移动一个
-     *
+     * 最好O(1)，最后一个位置添加
+     * 最坏O(n)，第一个元素位置添加
+     * 平均O(n)
      * @param index
      * @param element
      */
@@ -80,7 +82,7 @@ public class DynamicArray<E> extends AbstractCustList<E> {
 
     /**
      * 在指定位置设置元素，覆盖原来的元素，返回原来的元素
-     *
+     * O(1)
      * @param index
      * @param element
      * @return
@@ -95,7 +97,7 @@ public class DynamicArray<E> extends AbstractCustList<E> {
 
     /**
      * 查找指定位置的元素
-     *
+     * O(1)
      * @param index
      * @return
      */
@@ -107,7 +109,9 @@ public class DynamicArray<E> extends AbstractCustList<E> {
 
     /**
      * 删除指定位置的元素
-     *
+     * 最好O(1)，删除最后一个元素
+     * 最坏O(n)，删除第一个元素
+     * 平均O(n)
      * @param index
      * @return
      */
