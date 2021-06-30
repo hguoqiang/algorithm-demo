@@ -1,7 +1,5 @@
 package org.hgq;
 
-import java.util.LinkedList;
-
 /**
  * @description:
  * @author: huangguoqiang
@@ -10,6 +8,36 @@ import java.util.LinkedList;
 public class LinkedApp {
 
     public static void main(String[] args) {
+         SinglyCircleLinkedList<Integer> list = new SinglyCircleLinkedList<>();
+        // LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        list.add(5);
+        System.out.println(list);
+        list.add(0,111);
+        System.out.println(list);
+        list.add(4,444);
+        System.out.println(list);
+        list.add(2,232);
+        System.out.println(list);
+        list.add(list.size(), 999);
+        list.add(0, 0);
+        System.out.println(list);
+        System.out.println(list.remove(0));
+        System.out.println(list);
+        System.out.println(list.remove(list.size()-1));
+        System.out.println(list);
+        //size:5 [1,2,3,4,5]
+        //size:6 [111,1,2,3,4,5]
+        //size:7 [111,1,2,3,444,4,5]
+        //size:8 [111,1,232,2,3,444,4,5]
+        //size:10 [0,111,1,232,2,3,444,4,5,999]
+    }
+
+    /*public static void main(String[] args) {
         //    LinkedList<Integer> list = new LinkedList<>();
         CustLinkedList<Integer> list = new CustLinkedList<>();
         list.add(1);
@@ -42,7 +70,7 @@ public class LinkedApp {
         //size:5 [1,2,3,4,5]
         //size:11 [100,200,1,333,2,3,666,4,5,777,888]
         //size:11 [111,222,1,333,2,3,611,711,5,777,811]
-    }
+    }*/
  /*   public static void main(String[] args) {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         list.add(99);

@@ -124,8 +124,6 @@ public class CustLinkedList<E> extends AbstractCustList<E> {
         for (int i = size - 1; i > index; i--) {
             node = node.prev;
         }
-
-
         return node;
     }
 
@@ -137,7 +135,6 @@ public class CustLinkedList<E> extends AbstractCustList<E> {
         Node next = oldNode.next;
         if (prev == null) {
             head = next;
-            head.prev = null;
         } else {
             prev.next = next;
             oldNode.prev = null;
