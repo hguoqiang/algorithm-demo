@@ -14,7 +14,7 @@ public class DynamicArray<E> extends AbstractCustList<E> {
     /**
      * 容器默认容量
      */
-    private static final int DEFAULT_CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 10;
 
 
     public DynamicArray() {

@@ -13,6 +13,8 @@
         <module>a02linked</module>
         <module>a00common</module>
         <module>a00leetcode</module>
+        <module>a03stack</module>
+        <module>a04queue</module>
     </modules>
     <dependencies>
         <dependency>

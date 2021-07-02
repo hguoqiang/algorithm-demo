@@ -21,7 +21,7 @@ public class ArrayApp {
         array.add(36);
         array.add(37);
         array.add(1, 44);
-
+        System.out.println(array);
         System.out.println("array.remove: " + array.remove(array.size-1));
         System.out.println("array.remove: " + array.remove(1));
         System.out.println("array " + array);
