@@ -15,6 +15,7 @@
         <module>a00leetcode</module>
         <module>a03stack</module>
         <module>a04queue</module>
+        <module>a05tree</module>
     </modules>
     <dependencies>
         <dependency>
