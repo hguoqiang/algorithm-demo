@@ -2,6 +2,8 @@ package org.hgq.bst;
 
 import org.hgq.bst.printer.BinaryTrees;
 
+import java.util.Comparator;
+
 /**
  * @description:
  * @author: huangguoqiang
@@ -24,6 +26,18 @@ public class BinarySearchTreeApp {
             bst2.add(new Student(data[i],null));
         }
         BinaryTrees.println(bst2);
+
+
+        BinarySearchTree<Student> bst3 = new BinarySearchTree<>(new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o2.getAge()-o1.getAge();
+            }
+        });
+        for (int i = 0; i < data.length; i++) {
+            bst3.add(new Student(data[i],null));
+        }
+        BinaryTrees.println(bst3);
 
     }
 }
