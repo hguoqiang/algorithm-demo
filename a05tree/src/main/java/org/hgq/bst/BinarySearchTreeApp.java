@@ -61,8 +61,8 @@ public class BinarySearchTreeApp {
                 //7
         };
 
-       // BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        BST<Integer> bst = new BST<>();
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+       // BST<Integer> bst = new BST<>();
         for (int i = 0; i < data.length; i++) {
             bst.add(data[i]);
         }

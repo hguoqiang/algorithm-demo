@@ -90,7 +90,8 @@ public class BST<E> extends BinaryTree<E> {
      * @param element
      * @return
      */
-    public boolean remove(E element) {
+    @Override
+    protected boolean remove(E element) {
         elementNotNullCheck(element);
 
         CustTreeNode<E> delNode = getNode(element);
@@ -116,7 +117,8 @@ public class BST<E> extends BinaryTree<E> {
             //如果 (delNode.parent == null) && (child != null)  说明 delNode 是 度为1的 根节点,root =child;
             root = child;
         } else if (child != null) {
-            //删除度为1的节点,让子节点的parent指向自己的parent,让自己parent的right或者left指向自己的子节点
+            //来到这里说明  (delNode.left != null) 或者 (delNode.right != null) ,delNode 是度为1的节点
+            // 删除度为1的节点,让子节点的parent指向自己的parent,让自己parent的right或者left指向自己的子节点
             child.parent = delNode.parent;
             if (delNode == delNode.parent.left) {
                 delNode.parent.left = child;
@@ -124,7 +126,8 @@ public class BST<E> extends BinaryTree<E> {
                 delNode.parent.right = child;
             }
         } else {
-            //删除度为0的节点
+            //删除度为0的节点 , 来到这里说明 (delNode.left == null && delNode.right == null) delNode 是叶子节点
+
             if (delNode == delNode.parent.left) {
                 delNode.parent.left = null;
             } else {

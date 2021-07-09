@@ -63,7 +63,12 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
      */
     protected abstract void add(E element);
 
-
+    /**
+     * 删除元素
+     *
+     * @param element
+     */
+    protected abstract boolean remove(E element);
 
 
     /**
