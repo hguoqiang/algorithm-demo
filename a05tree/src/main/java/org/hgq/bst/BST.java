@@ -1,8 +1,9 @@
 package org.hgq.bst;
 
 import org.hgq.tree.BinaryTree;
+import org.hgq.tree.printer.BinaryTrees;
 
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * @description: 二叉搜索树，左子树的所有节点都小于父节点，右子树的所有节点都大于父节点
@@ -171,6 +172,189 @@ public class BST<E> extends BinaryTree<E> {
             return comparator.compare(e1, e2);
         }
         return ((Comparable<E>) e1).compareTo(e2);
+    }
+
+
+    /**
+     * 前序遍历  根 左 右，使用栈 后进先出
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal(CustTreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Stack<CustTreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            CustTreeNode top = stack.pop();
+            result.add((int) top.element);
+            if (top.right != null) {
+                stack.push(top.right);
+            }
+            if (top.left != null) {
+                stack.push(top.left);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 中序遍历  左 根 右 使用栈
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(CustTreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Stack<CustTreeNode> stack = new Stack<>();
+
+        while (root != null || !stack.isEmpty()) {
+
+            if (root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                CustTreeNode pop = stack.pop();
+                result.add((int) pop.element);
+                root = pop.right;
+            }
+        }
+        return result;
+    }
+
+    public List<Integer> postorderTraversal(CustTreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+        CustTreeNode pre = null;
+
+        Stack<CustTreeNode> stack = new Stack<>();
+
+        stack.push(root);
+        while (!stack.isEmpty()) {
+
+             root = stack.peek();
+            //当前节点的左右子树都是空的 ，出栈，当前节点的 左右子树不是空的，但是当前节点的左子树是上一次出栈的节点，或者当前节点的右子树是上一次出栈的节点，说明左右子树已经出栈了，那么当前父节点要出栈
+            if ((root.right == null && root.left == null) || (pre !=null&&(pre == root.left || pre == root.right))) {
+                stack.pop();
+                result.add((int) root.element);
+                pre = root;
+            } else {
+                if (root.right != null) {
+                    stack.push(root.right);
+                }
+                if (root.left != null) {
+                    stack.push(root.left);
+                }
+            }
+
+        }
+        return result;
+    }
+
+    /**
+     * 层序遍历，从上到下，从左到右依次访问元素，使用队列
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(CustTreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Queue<CustTreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int levelNodeSize = queue.size();
+
+        List<Integer> list = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            root = queue.poll();
+            list.add((int)root.element);
+            levelNodeSize--;
+            if (root.left != null) {
+                queue.offer(root.left);
+            }
+            if (root.right != null) {
+                queue.offer(root.right);
+            }
+            if (levelNodeSize == 0) {
+                result.add(0,new ArrayList<>(list));
+                list.clear();
+                levelNodeSize = queue.size();
+            }
+
+        }
+        return result;
+    }
+
+
+    /**
+     * 层序遍历
+     *
+     * @param root
+     * @return
+     */
+    public int maxDepth(CustTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int maxDepth = 0;
+        Queue<CustTreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int levelNodeSize = queue.size();
+
+        while (!queue.isEmpty()) {
+            root = queue.poll();
+            levelNodeSize--;
+
+            if (root.left != null) {
+                queue.offer(root.left);
+            }
+            if (root.right != null) {
+                queue.offer(root.right);
+            }
+            if (levelNodeSize == 0) {
+                maxDepth++;
+                levelNodeSize = queue.size();
+            }
+        }
+        return maxDepth;
+    }
+
+
+    public static void main(String[] args) {
+        Integer data[] = new Integer[]{
+                //7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+                //7, 4, 9, 2, 5, 8, 11, 3,  1
+                // 7, 4, 9, 2,  1
+                //1,3,2
+                -2147483648,2147483647
+        };
+        BST<Integer> bst = new BST<>();
+        for (int i = 0; i < data.length; i++) {
+            bst.add(data[i]);
+        }
+        BinaryTrees.println(bst);
+/*        System.out.println(bst.levelOrder(bst.root));
+        System.out.println(bst.maxDepth(bst.root));*/
+
     }
 
 }
