@@ -1,8 +1,6 @@
 package org.hgq.bst;
 
-import org.hgq.bst.printer.BinaryTrees;
-
-import java.util.Comparator;
+import org.hgq.tree.printer.BinaryTrees;
 
 /**
  * @description:
@@ -10,7 +8,7 @@ import java.util.Comparator;
  * @create: 2021-07-03 12:54
  **/
 public class BinarySearchTreeApp {
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Integer data[] = new Integer[] {
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
@@ -39,5 +37,43 @@ public class BinarySearchTreeApp {
         }
         BinaryTrees.println(bst3);
 
+
+
+        BinarySearchTree<Student> bst4 = new BinarySearchTree<>();
+        bst4.add(new Student(10,"zhangsna"));
+        bst4.add(new Student(12,"lisi"));
+        bst4.add(new Student(9,"王五"));
+        bst4.add(new Student(10,"haha"));
+        BinaryTrees.println(bst4);
+
+    }*/
+
+
+    public static void main(String[] args) {
+        preorderTraversalTest1();
+    }
+
+    static void preorderTraversalTest1() {
+        Integer data[] = new Integer[]{
+                7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+                //7, 4, 9, 2, 5, 8, 11, 3,  1
+                // 7, 4,  2,  1
+                //7
+        };
+
+       // BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        BST<Integer> bst = new BST<>();
+        for (int i = 0; i < data.length; i++) {
+            bst.add(data[i]);
+        }
+        BinaryTrees.println(bst);
+       /* bst.levelOrderTraversal();
+        System.out.println(bst.isCompleteBinaryTree2());
+        bst.invertTree();
+        BinaryTrees.println(bst);*/
+        System.out.println(bst.remove(9));
+//        System.out.println(bst.remove(3));
+//        System.out.println(bst.remove(12));
+        BinaryTrees.println(bst);
     }
 }

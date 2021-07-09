@@ -1,4 +1,4 @@
-package org.hgq.bst.printer;
+package org.hgq.tree.printer;
 
 public class Strings {
 	public static String repeat(String string, int count) {

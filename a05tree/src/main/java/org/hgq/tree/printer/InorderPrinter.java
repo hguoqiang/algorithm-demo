@@ -1,4 +1,4 @@
-package org.hgq.bst.printer;
+package org.hgq.tree.printer;
 
 /**
 
