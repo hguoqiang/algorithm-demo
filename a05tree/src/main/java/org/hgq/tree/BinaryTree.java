@@ -63,6 +63,17 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
      */
     protected abstract void add(E element);
 
+
+    protected abstract CustTreeNode<E> createNode(E element, CustTreeNode<E> parent);
+
+    /**
+     * 添加node之后的调整
+     *
+     * @param node 新添加的节点
+     */
+    protected abstract void afterAdd(CustTreeNode<E> node);
+
+
     /**
      * 删除元素
      *
@@ -365,6 +376,14 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
 
         public boolean isLeaf() {
             return left == null && right == null;
+        }
+
+        public boolean isLeftChild() {
+            return this.parent != null && this.parent.left == this;
+        }
+
+        public boolean isRightChild() {
+            return this.parent != null && this.parent.right == this;
         }
     }
 }
