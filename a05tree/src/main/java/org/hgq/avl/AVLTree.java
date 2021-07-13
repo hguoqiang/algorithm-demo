@@ -80,9 +80,11 @@ public class AVLTree<E> extends BST<E> {
     private void leftRotation(AVLNode<E> grandfather) {
         AVLNode<E> parent = (AVLNode<E>) grandfather.right;
         AVLNode<E> child = (AVLNode<E>) parent.left;
+        //交换子节点
         grandfather.right = child;
         parent.left = grandfather;
 
+        //维护各个节点的父节点
         afterRotation(grandfather, parent, child);
     }
 
@@ -95,6 +97,12 @@ public class AVLTree<E> extends BST<E> {
         afterRotation(grandfather,parent,child);
     }
 
+    /**
+     * 旋转的公共代码，不管是左旋转还是右旋转
+     * @param grandfather 失衡的节点
+     * @param parent 失衡节点的 高度最高的子节点
+     * @param child  grandfather 和 parent 交换的子节点，本来是 parent的子节点，变成 grandfather 的子节点
+     */
     private void afterRotation(AVLNode<E> grandfather, AVLNode<E> parent, AVLNode<E> child) {
         //让parent成为这颗子树的父节点
         parent.parent = grandfather.parent;
