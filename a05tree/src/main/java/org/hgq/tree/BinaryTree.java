@@ -81,6 +81,13 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
      */
     protected abstract boolean remove(E element);
 
+    /**
+     * 删除node之后的调整
+     *
+     * @param node 删除的节点
+     */
+    protected abstract void afterRemove(CustTreeNode<E> node);
+
 
     /**
      * 前序遍历，根左右，使用栈实现，后进先出，先进后出

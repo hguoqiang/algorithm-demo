@@ -111,7 +111,7 @@ public class BST<E> extends BinaryTree<E> {
      * @return
      */
     @Override
-    protected boolean remove(E element) {
+    public boolean remove(E element) {
         elementNotNullCheck(element);
 
         CustTreeNode<E> delNode = getNode(element);
@@ -154,8 +154,16 @@ public class BST<E> extends BinaryTree<E> {
                 delNode.parent.right = null;
             }
         }
+
+        afterRemove(delNode);
+
         size--;
         return true;
+    }
+
+    @Override
+    protected void afterRemove(CustTreeNode<E> node) {
+
     }
 
     public CustTreeNode<E> getNode(E element) {

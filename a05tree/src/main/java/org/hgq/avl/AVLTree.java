@@ -29,14 +29,14 @@ public class AVLTree<E> extends BST<E> {
 
         node = node.parent;
         while (node != null) {
-            if (isBalance(node)) {
+            if (isBalanced(node)) {
                 //如果平衡，更新高度
                 ((AVLNode<E>) node).updateHeight();
 
             } else {
                 //如果不平衡，就旋转，恢复平衡，只要把高度最低的祖先节点恢复平衡，整个二叉树就平衡了
                 //第一次传入的这个node ，一定是高度最低的祖先节点，就是父节点的父节点
-                rebalance((AVLNode<E>) node);
+                rebalanced((AVLNode<E>) node);
                 break;
             }
             node = node.parent;
@@ -44,12 +44,29 @@ public class AVLTree<E> extends BST<E> {
 
     }
 
+    @Override
+    protected void afterRemove(CustTreeNode<E> node) {
+        //删除节点可能导致父节点或者祖先节点失衡（只有一个节点会失衡）
+        node = node.parent;
+        while (node != null) {
+            if (isBalanced(node)) {
+                //如果平衡，更新高度
+                ((AVLNode<E>) node).updateHeight();
+
+            } else {
+                //如果不平衡，就旋转，恢复平衡，但是恢复平衡后又可能导致更高的祖先节点失衡（最多需要O(log n 次调整) ）
+                rebalanced((AVLNode<E>) node);
+            }
+            node = node.parent;
+        }
+    }
+
     /**
      * 恢复平衡
      *
      * @param grandfather
      */
-    private void rebalance(AVLNode<E> grandfather) {
+    private void rebalanced(AVLNode<E> grandfather) {
         AVLNode<E> parent = grandfather.tallerChild();
         AVLNode<E> node = parent.tallerChild();
 
@@ -143,7 +160,7 @@ public class AVLTree<E> extends BST<E> {
      * @param node
      * @return
      */
-    private boolean isBalance(CustTreeNode<E> node) {
+    private boolean isBalanced(CustTreeNode<E> node) {
         return Math.abs(((AVLNode<E>) node).balanceFactor()) <= 1;
     }
 
