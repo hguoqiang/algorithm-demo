@@ -1,6 +1,6 @@
 package org.hgq.avl;
 
-import org.hgq.bst.BST;
+import org.hgq.bbst.BBST;
 
 import java.util.Comparator;
 
@@ -9,8 +9,9 @@ import java.util.Comparator;
  * @author: huangguoqiang
  * @create: 2021-07-12 20:35
  **/
-public class AVLTree<E> extends BST<E> {
+public class AVLTree<E> extends BBST<E> {
     public AVLTree() {
+        this(null);
     }
 
     public AVLTree(Comparator comparator) {
@@ -19,7 +20,7 @@ public class AVLTree<E> extends BST<E> {
 
     @Override
     protected CustTreeNode<E> createNode(E element, CustTreeNode<E> parent) {
-        return new AVLNode<>(element,parent);
+        return new AVLNode<>(element, parent);
     }
 
     @Override
@@ -94,54 +95,14 @@ public class AVLTree<E> extends BST<E> {
         }
     }
 
-    private void leftRotation(AVLNode<E> grandfather) {
-        AVLNode<E> parent = (AVLNode<E>) grandfather.right;
-        AVLNode<E> child = (AVLNode<E>) parent.left;
-        //交换子节点
-        grandfather.right = child;
-        parent.left = grandfather;
-
-        //维护各个节点的父节点
-        afterRotation(grandfather, parent, child);
-    }
-
-    private void rightRotation(AVLNode<E> grandfather) {
-        AVLNode<E> parent = (AVLNode<E>) grandfather.left;
-        AVLNode<E> child = (AVLNode<E>) parent.right;
-        grandfather.left = child;
-        parent.right = grandfather;
-
-        afterRotation(grandfather,parent,child);
-    }
-
-    /**
-     * 旋转的公共代码，不管是左旋转还是右旋转
-     * @param grandfather 失衡的节点
-     * @param parent 失衡节点的 高度最高的子节点
-     * @param child  grandfather 和 parent 交换的子节点，本来是 parent的子节点，变成 grandfather 的子节点
-     */
-    private void afterRotation(AVLNode<E> grandfather, AVLNode<E> parent, AVLNode<E> child) {
-        //让parent成为这颗子树的父节点
-        parent.parent = grandfather.parent;
-        if (grandfather.isLeftChild()) {
-            grandfather.parent.left = parent;
-        } else if (grandfather.isRightChild()) {
-            grandfather.parent.right = parent;
-        } else {
-            // grandfather.parent==null
-            root = parent;
-        }
-        // 更新child的parent
-        if (child != null) {
-            child.parent = grandfather;
-        }
-        // 更新grand的parent
-        grandfather.parent = parent;
+    @Override
+    protected void afterRotation(CustTreeNode<E> grandfather, CustTreeNode<E> parent, CustTreeNode<E> child) {
+        super.afterRotation(grandfather, parent, child);
 
         //更新高度 ，先更新子节点的高度，再更新父节点的高度，经过旋转，
         // 此时 grandfather 已经变成 parent的右子树，parent 成为这一颗子树的父节点
-        grandfather.updateHeight();
-        parent.updateHeight();
+        ((AVLNode) grandfather).updateHeight();
+        ((AVLNode) parent).updateHeight();
     }
 
     @Override
@@ -151,7 +112,7 @@ public class AVLTree<E> extends BST<E> {
         if (myNode.parent != null) {
             parentString = myNode.parent.element.toString();
         }
-        return myNode.element + "_p(" + parentString + ")" +"_h(" + myNode.height + ")";
+        return myNode.element + "_p(" + parentString + ")" + "_h(" + myNode.height + ")";
     }
 
     /**

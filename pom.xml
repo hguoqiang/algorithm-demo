@@ -16,6 +16,7 @@
         <module>a03stack</module>
         <module>a04queue</module>
         <module>a05tree</module>
+        <module>a06map</module>
     </modules>
     <dependencies>
         <dependency>

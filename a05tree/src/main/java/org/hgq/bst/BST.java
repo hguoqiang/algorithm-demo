@@ -47,7 +47,11 @@ public class BST<E> extends BinaryTree<E> {
         elementNotNullCheck(element);
         //如果根节点是空的，添加第一个元素
         if (root == null) {
-            root = createNode(element, null);
+            CustTreeNode newNode = createNode(element, null);
+            root = newNode;
+            size++;
+            //新添加节点之后的处理
+            afterAdd(newNode);
             return;
         }
 
@@ -94,7 +98,7 @@ public class BST<E> extends BinaryTree<E> {
     }
 
     @Override
-    protected   CustTreeNode<E> createNode(E element, CustTreeNode<E> parent){
+    protected CustTreeNode<E> createNode(E element, CustTreeNode<E> parent) {
         return new CustTreeNode<>(element, parent);
     }
 
@@ -134,8 +138,14 @@ public class BST<E> extends BinaryTree<E> {
 
         if (delNode.parent == null) {
             //如果 (delNode.parent == null) && (child == null) 说明这棵树只有一个根节点，直接root = null;
-            //如果 (delNode.parent == null) && (child != null)  说明 delNode 是 度为1的 根节点,root =child;
+            //如果 (delNode.parent == null) && (child != null)  说明 delNode 是 度为1的 根节点,root =child; child.parent = null;
             root = child;
+            if (child != null) {
+                child.parent = null;
+            }
+
+            afterRemove(delNode);
+
         } else if (child != null) {
             //来到这里说明  (delNode.left != null) 或者 (delNode.right != null) ,delNode 是度为1的节点
             // 删除度为1的节点,让子节点的parent指向自己的parent,让自己parent的right或者left指向自己的子节点
@@ -145,6 +155,8 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 delNode.parent.right = child;
             }
+            //把代替 删除节点 的新的节点传入
+            afterRemove(child);
         } else {
             //删除度为0的节点 , 来到这里说明 (delNode.left == null && delNode.right == null) delNode 是叶子节点
 
@@ -153,17 +165,18 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 delNode.parent.right = null;
             }
+            afterRemove(delNode);
         }
 
-        afterRemove(delNode);
 
         size--;
         return true;
     }
 
-    @Override
+    /**
+     * @param node 被删除节点 或者是用以取代被删除节点的替代者
+     */
     protected void afterRemove(CustTreeNode<E> node) {
-
     }
 
     public CustTreeNode<E> getNode(E element) {

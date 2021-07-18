@@ -81,12 +81,6 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
      */
     protected abstract boolean remove(E element);
 
-    /**
-     * 删除node之后的调整
-     *
-     * @param node 删除的节点
-     */
-    protected abstract void afterRemove(CustTreeNode<E> node);
 
 
     /**
@@ -381,16 +375,43 @@ public abstract class BinaryTree<E> implements BinaryTreeInfo {
             this.parent = parent;
         }
 
+        /**
+         * 判断当前节点是否是叶子节点
+         * @return
+         */
         public boolean isLeaf() {
             return left == null && right == null;
         }
 
+        /**
+         * 判断当前节点是否是父节点的左子树
+         * @return
+         */
         public boolean isLeftChild() {
             return this.parent != null && this.parent.left == this;
         }
 
+        /**
+         * 判断当前节点是否是父节点的右子树
+         * @return
+         */
         public boolean isRightChild() {
             return this.parent != null && this.parent.right == this;
         }
+
+
+        /**
+         * 返回当前节点的兄弟节点
+         * @return
+         */
+        public CustTreeNode<E> sibling(){
+            if(isLeftChild()){
+                return this.parent.right;
+            }else if(isRightChild()){
+                return this.parent.left;
+            }
+            return null;
+        }
+
     }
 }
